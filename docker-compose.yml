@@ -1,0 +1,41 @@
+version: '3.7'
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  data-volume:
+    driver: local
+
+services:
+  redis:
+    image: redis:7.2.3
+    container_name: tus-php-redis
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - default
+  tus-php-server:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: tus-php-server
+    ports:
+      - 8081:80
+    environment:
+      - REDIS_HOST=tus-php-redis
+      - REDIS_PORT=6379
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "1"
+    volumes:
+      - ./app:/var/www/html
+      - ./uploads:/var/www/uploads
+    restart: unless-stopped
+    depends_on:
+      - redis
+    networks:
+      - default

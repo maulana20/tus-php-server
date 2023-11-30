@@ -1,0 +1,7 @@
+{
+    "name": "maulana20/tus-php-server",
+    "description": "tus-server for upload cache using file store",
+    "require": {
+        "ankitpokhrel/tus-php": "^2.0"
+    }
+}
