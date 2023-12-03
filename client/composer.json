@@ -1,0 +1,7 @@
+{
+    "name": "maulana20/tus-php-client",
+    "description": "tus client example for upload",
+    "require": {
+        "ankitpokhrel/tus-php": "^2.0"
+    }
+}
